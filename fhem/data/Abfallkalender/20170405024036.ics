@@ -5,7 +5,7 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:AWS-Kalender - Abfall-Abfuhrtermine in Stuttgart
 X-WR-CALDESC:AWS-Kalender - Abfall-Abfuhrtermine in Stuttgart\, Usedomstr. 
- 36
+ 9999
 X-WR-TIMEZONE:Europe/Berlin
 TZID:Europe/Berlin
 BEGIN:VTIMEZONE
