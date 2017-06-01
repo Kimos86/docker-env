@@ -14,6 +14,8 @@ services:
         privileged: true
         stdin_open: true
         tty: true
+        networks:
+            - code-networks
 #       devices:
         volumes:
             - ./fhem/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
@@ -28,9 +30,6 @@ services:
 #           - ./fhem/data/FHEM/99_myUtils.pm:/opt/fhem/FHEM/99_myUtils.pm
 #           - ./fhem/log/:/opt/fhem/log
 #           - ./fhem/data/fhem.cfg:/opt/fhem/fhem.cfg
-          
-         networks:
-            - code-networks
 #        depends_on:
 
 networks:
