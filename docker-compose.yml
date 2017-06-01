@@ -29,7 +29,10 @@ services:
 #           - ./fhem/log/:/opt/fhem/log
 #           - ./fhem/data/fhem.cfg:/opt/fhem/fhem.cfg
           
-#        networks:
+         networks:
+            - code-networks
 #        depends_on:
-        
-          
+
+networks:
+    code-network:
+        driver: bridge    
