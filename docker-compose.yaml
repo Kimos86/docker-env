@@ -15,7 +15,7 @@ services:
         stdin_open: true
         tty: true
         networks:
-            - code-networks
+            - code-network
 #       devices:
         volumes:
             - ./fhem/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
