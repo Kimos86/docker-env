@@ -1,1 +1,24 @@
+version: '2'
 
+services:
+    fhem:
+        expose:
+          -"8083"
+          -"7072"
+        ports:
+          -"8083:8083"
+          -"7072:7072"
+        build: fhem
+        privileged: true
+        devices:
+        volumes:
+          -./fhem/start.sh:/opt/fhem/start.sh
+          -./fhem/log/:/opt/fhem/log
+          -./fhem/data/fhem.cfg:/opt/fhem/fhem.cfg
+          -./fhem/data/controls.txt:/opt/fhem/controls.txt
+          -./fhem/data/FHEM/99_myUtils.pm:/opt/fhem/FHEM/99_myUtils.pm
+          -./fhem/data/contrib/dblog/db.conf:/opt/fhem/contrib/dblog/db.conf
+        networks:
+        depends_on:
+        
+          
