@@ -56,15 +56,15 @@ RUN mkdir -p /var/log/supervisor
 
 RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+#COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 VOLUME ["/opt/fhem"]
 
 # Ports
-EXPOSE 8083
-EXPOSE 51826
+#EXPOSE 8083
+#EXPOSE 51826
 
 
-COPY start.sh ./
+#COPY start.sh ./
 RUN chmod +x ./start.sh
 CMD ["./start.sh"]
