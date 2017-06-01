@@ -67,4 +67,4 @@ VOLUME ["/opt/fhem"]
 
 #COPY start.sh ./
 RUN chmod +x /opt/fhem/start.sh
-CMD ["/opt/fhem/./start.sh"]
+#CMD ["/opt/fhem/./start.sh"]
