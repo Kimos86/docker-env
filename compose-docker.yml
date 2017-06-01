@@ -3,14 +3,14 @@ version: '2'
 services:
     fhem:
         expose:
-          -"8083"
-          -"7072"
-          -"51826"
+            -"8083"
+            -"7072"
+            -"51826"
         ports:
-          -"8083:8083"
-          -"7072:7072"
-          -"51826:51826"
-        build: fhem
+            -"8083:8083"
+            -"7072:7072"
+            -"51826:51826"
+            build: fhem
         privileged: true
         devices:
         volumes:
