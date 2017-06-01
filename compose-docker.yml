@@ -5,9 +5,11 @@ services:
         expose:
           -"8083"
           -"7072"
+          -"51826"
         ports:
           -"8083:8083"
           -"7072:7072"
+          -"51826:51826"
         build: fhem
         privileged: true
         devices:
