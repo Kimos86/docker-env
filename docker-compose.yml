@@ -12,6 +12,7 @@ services:
             - "51826:51826"
         build: fhem
         privileged: true
+        tty: true
 #       devices:
         volumes:
             - ./fhem/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
