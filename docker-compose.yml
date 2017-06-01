@@ -12,6 +12,7 @@ services:
             - "51826:51826"
         build: fhem
         privileged: true
+        stdin_open: true
         tty: true
 #       devices:
         volumes:
