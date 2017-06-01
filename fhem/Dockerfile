@@ -68,3 +68,12 @@ VOLUME ["/opt/fhem"]
 #COPY start.sh ./
 RUN chmod +x /opt/fhem/start.sh
 #CMD ["/opt/fhem/./start.sh"]
+
+#COPY ./fhem.sh /usr/local/bin/fhem.sh
+#RUN chmod a+x /usr/local/bin/fhem.sh
+
+#WORKDIR /opt/fhem
+
+#USER fhem
+
+#ENTRYPOINT ["/usr/local/bin/fhem.sh"]
