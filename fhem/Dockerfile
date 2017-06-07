@@ -74,6 +74,6 @@ RUN chmod a+x /usr/local/bin/start.sh
 
 WORKDIR /opt/fhem
 
-USER fhem
+#USER fhem
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]
