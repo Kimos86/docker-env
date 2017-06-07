@@ -7,7 +7,7 @@ if [ ! -d /var/run/fhem  ]; then
 fi
 
 chown -R fhem:root /opt/fhem
-#chown -R fhem:root /opt/fhem/data
+chown -R fhem:root /opt/data
 
 #/etc/init.d/dbus restart
 #service avahi-daemon start
