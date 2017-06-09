@@ -30,6 +30,31 @@ services:
 #           - ./fhem/data/FHEM/99_myUtils.pm:/opt/fhem/FHEM/99_myUtils.pm
 #           - ./fhem/log/:/opt/fhem/log
 #           - ./fhem/data/fhem.cfg:/opt/fhem/fhem.cfg
+         depends_on:
+            - "mysql"
+
+
+
+    mysql:
+        expose:
+            - "3306"
+            - "33060"
+        ports:
+            - "3306:3306"
+            - "33060:33060"
+        image: mysql/mysql-server:5.7
+#        privileged: true
+#        stdin_open: true
+        tty: true
+        environment:
+            - MYSQL_RANDOM_ROOT_PASSWORD=yes
+        networks:
+            - code-network
+#       devices:
+        volumes:
+            - ./mysql/init.sql:/docker-entrypoint-initdb.d/fhem-init.sql
+            - ./mysql/data:/var/lib/mysql
+
 #        depends_on:
 
 networks:
