@@ -30,9 +30,8 @@ services:
 #           - ./fhem/data/FHEM/99_myUtils.pm:/opt/fhem/FHEM/99_myUtils.pm
 #           - ./fhem/log/:/opt/fhem/log
 #           - ./fhem/data/fhem.cfg:/opt/fhem/fhem.cfg
-         depends_on:
+        depends_on:
             - "mysql"
-
 
 
     mysql:
@@ -56,6 +55,7 @@ services:
             - ./mysql/data:/var/lib/mysql
 
 #        depends_on:
+
 
 networks:
     code-network:
