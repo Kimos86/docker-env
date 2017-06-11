@@ -45,7 +45,8 @@ services:
 #        stdin_open: true
         tty: true
         environment:
-            - MYSQL_RANDOM_ROOT_PASSWORD=yes
+#            - MYSQL_RANDOM_ROOT_PASSWORD=yes
+            - MYSQL_ROOT_PASSWORD=123
         networks:
             - code-network
 #       devices:
