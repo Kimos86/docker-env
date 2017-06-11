@@ -54,6 +54,10 @@ RUN echo 'attr global pidfilename /var/run/fhem/fhem.pid' >> /opt/fhem/fhem.cfg
 RUN apt-get -y --force-yes install supervisor && apt-get clean
 RUN mkdir -p /var/log/supervisor
 
+#Install mysql-client
+RUN apt-get -y --force-yes install mysql-client && apt-get clean
+
+#Timezone Berlin
 RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 
 #COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
