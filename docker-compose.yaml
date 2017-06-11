@@ -51,7 +51,7 @@ services:
 #       devices:
         volumes:
             - ./mysql/init.sql:/docker-entrypoint-initdb.d/fhem-init.sql
-            - ./mysql/data:/var/lib/mysql
+            - /docker/mysql_recover/data:/var/lib/mysql
 
 #        depends_on:
 
