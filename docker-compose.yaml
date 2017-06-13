@@ -52,6 +52,7 @@ services:
             - ./homebridge/start.sh:/root/start.sh
             - ./homebridge/config.json:/root/.homebridge/config.json
             - ./homebridge/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+            - ./homebridge/homebridge.sh:/etc/init.d/homebridge
         depends_on:
             - "fhem"
 
