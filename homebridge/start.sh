@@ -1,8 +1,20 @@
 #!/bin/sh
 ###Zusatz Berechtigung
 
-chown -R root:root /root/start.sh
-chown -R root:root /root/.homebridge/config.json
+cd /root/.homebridge
+file="/root/.homebridge/package.json"
+if [ -f "$file" ]
+then
+	echo "$file found. Going to install additional plugins."
+#	npm run install
+else
+	echo "$file not found. You can create this file to install additional plugins not already included in the docker image."
+fi
+
+chown -R root /root/start.sh
+chown -R root /root/.homebridge/config.json
+
+
 
 
 ### BEGIN INIT INFO
