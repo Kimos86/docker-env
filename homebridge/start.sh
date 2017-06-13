@@ -1,4 +1,10 @@
 #!/bin/sh
+###Zusatz Berechtigung
+
+chown -R root:root /root/start.sh
+chown -R root:root /root/.homebridge/config.json
+
+
 ### BEGIN INIT INFO
 # Provides: homebridge
 # Required-Start: $network $remote_fs $syslog
