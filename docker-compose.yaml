@@ -43,8 +43,8 @@ services:
             - "5353:5353"
         build: homebridge
 #        privileged: true
-#        stdin_open: true
-#        tty: true
+        stdin_open: true
+        tty: true
         networks:
             - code-network
 #       devices:
