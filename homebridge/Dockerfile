@@ -19,9 +19,14 @@ ENV NODE_ENV production
 
 RUN apt-get install -y --force-yes make make gcc g++
 
+#Install supervisord
+RUN apt-get -y --force-yes install supervisor && apt-get clean
+RUN mkdir -p /var/log/supervisor
+
 RUN npm install -g homebridge homebridge-fhem homebridge-http
 
-EXPOSE 51826
+
+#EXPOSE 51826
 
 COPY start.sh ./
 CMD bash ./start.sh
