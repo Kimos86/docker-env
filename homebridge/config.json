@@ -11,7 +11,7 @@
             "name": "FHEM",
             "server": "127.0.0.1",
             "port": "8083",
-            "auth": {"user": "matthias", "pass": "fhem"},
+            "auth": {"user": "fhem", "pass": "fhem"},
             "ssl": true,
             "filter": "room=Homekit"
         }
