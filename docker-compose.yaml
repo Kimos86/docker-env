@@ -20,17 +20,9 @@ services:
         volumes:
             - ./fhem/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
             - ./fhem/start.sh:/opt/fhem/start.sh
-            - /docker/fhem_recover/:/opt/fhem/
-            - /docker/backup:./backup/
-#new           - /docker/fhem_recover/fhem.cfg:/opt/fhem/fhem.cfg
-#new            - /docker/fhem_recover/FHEM/99_myUtils.pm:/opt/fhem/FHEM/99_myUtils.pm
             - ./fhem/data/Abfallkalender/muellkalender.ics:/opt/data/muellkalender.ics
-#new            - /docker/fhem_recover/contrib/dblog/db.conf:/opt/fhem/contrib/dblog/db.conf
-#           - ./fhem/data/controls.txt:/opt/fhem/controls.txt
-#           - /docker/fhem_recover/fhem/data/controls.txt:/opt/fhem/controls.txt
-#           - ./fhem/data/FHEM/99_myUtils.pm:/opt/fhem/FHEM/99_myUtils.pm
-#           - ./fhem/log/:/opt/fhem/log
-#           - ./fhem/data/fhem.cfg:/opt/fhem/fhem.cfg
+            - /docker/fhem_recover/:/opt/fhem/
+            - /docker/backup:/opt/fhem/backup
         depends_on:
             - "mysql"
 
