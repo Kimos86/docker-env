@@ -26,27 +26,17 @@ services:
         depends_on:
             - "mysql"
 
-    homebridge:
-        expose:
-            - "51826"
-            - "8282"
-            - "5353"
-        ports:
-            - "51826:51826"
-            - "8282:8282"
-            - "5353:5353"
-        build: homebridge
-#        privileged: true
-        stdin_open: true
-        tty: true
-        networks:
-            - code-network
-#       devices:
+   homebridge:
+        restart: always
+        image: oznu/homebridge
         volumes:
-            - ./homebridge/start.sh:/root/start.sh
-            - ./homebridge/config.json:/root/.homebridge/config.json
-            - ./homebridge/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
-            - ./homebridge/homebridge.sh:/etc/init.d/homebridge.sh
+            - ./homebridge/config.json:/homebridge/config.json
+            - ./homebridge/package.json:/homebridge/package.json
+        environment:
+            - TZ=Europe/Berlin
+            - PGID=1000
+            - PUID=1000
+        network_mode: host
         depends_on:
             - "fhem"
 
