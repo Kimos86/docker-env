@@ -1,6 +1,6 @@
 CREATE DATABASE `fhem` DEFAULT CHARACTER SET = `utf8`;
 
-CREATE USER 'fhemuser'@'%' IDENTIFIED BY 'fhempassword';
+CREATE USER 'fhemuser'@'%' IDENTIFIED BY '2jRHnEi3WuNSQAcX7';
 
 REVOKE CREATE ROUTINE, CREATE VIEW, CREATE USER, ALTER, SHOW VIEW, CREATE, ALTER ROUTINE, EVENT, SUPER, INSERT, RELOAD, SELECT, DELETE, FILE, SHOW DATABASES, TRIGGER, SHUTDOWN, REPLICATION CLIENT, GRANT OPTION, PROCESS, REFERENCES, UPDATE, DROP, REPLICATION SLAVE, EXECUTE, LOCK TABLES, CREATE TEMPORARY TABLES, INDEX ON *.* FROM 'fhemuser'@'%';
 
@@ -12,20 +12,25 @@ USE `fhem`;
 
 CREATE TABLE history (
     TIMESTAMP TIMESTAMP,
-    DEVICE varchar(32),
-    TYPE varchar(32),
+    DEVICE varchar(64),
+    TYPE varchar(64),
     EVENT varchar(512),
-    READING varchar(32),
-    VALUE varchar(32),
-    UNIT varchar(32)
+    READING varchar(64),
+    VALUE varchar(255),
+    UNIT varchar(32),
+    KEY `IDX_HISTORY` (`DEVICE`,`READING`,`TIMESTAMP`,`VALUE`),
+    KEY `IDX_DEVICE` (`DEVICE`,`READING`),
+    KEY `IDX_REPORT` (`TIMESTAMP`,`READING`) USING BTREE
 );
 
 CREATE TABLE current (
     TIMESTAMP TIMESTAMP,
-    DEVICE varchar(32),
-    TYPE varchar(32),
+    DEVICE varchar(64),
+    TYPE varchar(64),
     EVENT varchar(512),
-    READING varchar(32),
-    VALUE varchar(32),
+    READING varchar(64),
+    VALUE varchar(255),
     UNIT varchar(32)
-)
+);
+
+FLUSH PRIVILEGES;
