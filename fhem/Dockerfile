@@ -1,83 +1,98 @@
-FROM debian:jessie
+FROM debian:stretch
 
 MAINTAINER Kimos
 
+ENV FHEM_VERSION 5.8
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm
 
 # Install dependencies
-RUN apt-get update
-RUN apt-get -y --force-yes install wget git nano make gcc g++ apt-transport-https libavahi-compat-libdnssd-dev sudo nodejs etherwake
+RUN apt-get update && apt-get upgrade -y --force-yes && apt-get install -y --force-yes --no-install-recommends apt-utils
+RUN apt-get -y --force-yes install \
+apt-transport-https \
+build-essential \
+dfu-programmer \
+etherwake \
+git \
+perl \
+snmp \
+snmpd \
+sqlite3 \
+sudo \
+telnet \
+usbutils \
+vim \
+wget
 
-# Fix for FHEM 5.8
-RUN apt-get -y --force-yes install sqlite3 libdbd-sqlite3-perl libtext-diff-perl  && apt-get clean
-
-# Install perl packages kimos86
-RUN apt-get -y --force-yes install libalgorithm-merge-perl \
+# Install perl packages
+RUN apt-get -y --force-yes install \
+libalgorithm-merge-perl \
+libauthen-oath-perl \
+libavahi-compat-libdnssd-dev \
+libcgi-pm-perl \
+libclass-dbi-mysql-perl \
 libclass-isa-perl \
+libcrypt-cbc-perl \
+libcrypt-ecb-perl \
+libcrypt-urandom-perl \
+libcgi-pm-perl \
 libcommon-sense-perl \
+libconvert-base32-perl \
+libcrypt-urandom-perl \
+libdata-dump-perl \
+libdatetime-format-strptime-perl \
+libdbd-sqlite3-perl \
+libdbi-perl \
+libdevice-serialport-perl \
+libdigest-md5-perl \
 libdpkg-perl \
 liberror-perl \
 libfile-copy-recursive-perl \
 libfile-fcntllock-perl \
+libgd-graph-perl \
+libgd-text-perl \
+libimage-info-perl \
+libimage-librsvg-perl \
+libio-socket-inet6-perl \
 libio-socket-ip-perl \
+libio-socket-multicast-perl \
+libio-socket-ssl-perl \
+libimage-info-perl \
+libimage-librsvg-perl \
 libjson-perl \
 libjson-xs-perl \
+liblist-moreutils-perl \
+libmail-imapclient-perl \
 libmail-sendmail-perl \
+libmime-base64-perl \
+libnet-telnet-perl \
+libsoap-lite-perl \
 libsocket-perl \
+libsocket6-perl \
 libswitch-perl \
 libsys-hostname-long-perl \
 libterm-readkey-perl \
 libterm-readline-perl-perl \
-libsnmp-perl \
-libnet-telnet-perl \
-libmime-lite-perl \
-libxml-simple-perl \
-libdigest-crc-perl \
-libcrypt-cbc-perl \
-libio-socket-timeout-perl \
-libmime-lite-perl \
-libdevice-serialport-perl && apt-get clean
-
-WORKDIR /opt
-# Install fhem kimos86
-RUN wget http://fhem.de/fhem-5.8.deb
-RUN dpkg -i fhem-5.8.deb || true
-# RUN rm fhem.deb
-RUN echo 'fhem    ALL = NOPASSWD:ALL' >>/etc/sudoers
-RUN echo 'attr global pidfilename /var/run/fhem/fhem.pid' >> /opt/fhem/fhem.cfg
-#RUN echo 'define Wetter_Villach Weather 540859 1800 de'   >> /opt/fhem/fhem.cfg
-
-#RUN cd /opt && chown -R a+w fhem && sudo usermod -a -G tty fhem
-
-#Install supervisord
-RUN apt-get -y --force-yes install supervisor && apt-get clean
-RUN mkdir -p /var/log/supervisor
-
-#Install mysql-client
-RUN apt-get -y --force-yes install mysql-client && apt-get clean
+libtext-csv-perl \
+libtext-diff-perl \
+libtimedate-perl \
+libwww-perl \
+libxml-simple-perl
 
 #Timezone Berlin
 RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 
-#COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+#Install mysql-client
+RUN apt-get -y --force-yes install mysql-client && apt-get clean
 
-VOLUME ["/opt/fhem"]
+# Install fhem kimos86
+RUN wget https://fhem.de/fhem-${FHEM_VERSION}.deb && dpkg -i fhem-${FHEM_VERSION}.deb
+RUN userdel fhem
 
-# Ports
-#EXPOSE 8083
-#EXPOSE 51826
+WORKDIR "/opt/fhem"
 
+COPY /start.sh ./
 
-#COPY start.sh ./
-#RUN chmod +x /opt/fhem/start.sh
-#CMD ["/opt/fhem/./start.sh"]
-#----------Neu TESTEN---------------------------
-COPY ./start.sh /usr/local/bin/start.sh
-RUN chmod a+x /usr/local/bin/start.sh
+EXPOSE 8083 7072
 
-WORKDIR /opt/fhem
-
-#USER fhem
-
-ENTRYPOINT ["/usr/local/bin/start.sh"]
+CMD bash /opt/fhem/start.sh
