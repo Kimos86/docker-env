@@ -1,14 +1,8 @@
 #!/bin/bash
-# short workaround script
 
-if [ ! -d /var/run/fhem  ]; then
-    mkdir /var/run/fhem
-    chown -R fhem:root /var/run/fhem
-fi
+set -e
+cd /opt/fhem
+port=7072
 
-chown -R fhem:root /opt/fhem
-chown -R fhem:root /opt/data
-
-#/etc/init.d/dbus restart
-#service avahi-daemon start
-/usr/bin/supervisord
+echo "Starte FHEM"
+perl fhem.pl fhem.cfg | tee /opt/fhem/log/fhem.log
