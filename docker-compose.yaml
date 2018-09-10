@@ -2,27 +2,23 @@ version: '2'
 
 services:
     fhem:
+        restart: always
         expose:
             - "8083"
             - "7072"
-#            - "51826"
         ports:
             - "8083:8083"
             - "7072:7072"
-#            - "51826:51826"
         build: fhem
         privileged: true
-        stdin_open: true
-        tty: true
-        networks:
-            - code-network
-#       devices:
         volumes:
             - ./fhem/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
             - ./fhem/start.sh:/opt/fhem/start.sh
             - ./fhem/data/Abfallkalender/muellkalender.ics:/opt/data/muellkalender.ics
             - /docker/fhem_recover/:/opt/fhem/
             - /docker/backup:/opt/fhem/backup
+        networks:
+            - jarvis-network
         depends_on:
             - "mysql"
 
@@ -41,6 +37,7 @@ services:
             - "fhem"
 
     mysql:
+        restart: always
         expose:
             - "3306"
             - "33060"
@@ -48,22 +45,14 @@ services:
             - "3306:3306"
             - "33060:33060"
         image: mysql/mysql-server:5.7
-#        privileged: true
-#        stdin_open: true
-        tty: true
-        environment:
-            - MYSQL_RANDOM_ROOT_PASSWORD=yes
-#            - MYSQL_ROOT_PASSWORD=123
-        networks:
-            - code-network
-#       devices:
         volumes:
             - ./mysql/init.sql:/docker-entrypoint-initdb.d/fhem-init.sql
             - /docker/mysql_recover/data:/var/lib/mysql
-
-#        depends_on:
-
+        environment:
+            - MYSQL_RANDOM_ROOT_PASSWORD=yes
+        networks:
+            - jarvis-network
 
 networks:
-    code-network:
+    jarvis-network:
         driver: bridge    
