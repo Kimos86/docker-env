@@ -12,7 +12,7 @@ services:
         build: fhem
         privileged: true
         volumes:
-            - ./fhem/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+#            - ./fhem/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
             - ./fhem/start.sh:/opt/fhem/start.sh
             - ./fhem/data/Abfallkalender/muellkalender.ics:/opt/data/muellkalender.ics
             - /docker/fhem_recover/:/opt/fhem/
